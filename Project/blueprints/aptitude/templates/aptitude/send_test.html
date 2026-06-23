@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Send Test — TalentLens{% endblock %}
+{% block content %}
+<section class="py-5">
+    <div class="container" style="max-width:880px;">
+        <span class="eyebrow">Invite candidates</span>
+        <h1 class="h2 mb-4">Send "{{ test.title }}"</h1>
+        <div class="card mb-4"><div class="card-body p-4">
+            <div class="row text-center g-3">
+                <div class="col-4"><div class="text-secondary small">Time limit</div><div class="h5 mb-0">{{ test.time_limit }} min</div></div>
+                <div class="col-4"><div class="text-secondary small">Pass mark</div><div class="h5 mb-0">{{ test.passing_score }}%</div></div>
+                <div class="col-4"><div class="text-secondary small">Link valid</div><div class="h5 mb-0">7 days</div></div>
+            </div>
+            {% if test.description %}<hr><p class="text-secondary mb-0 small">{{ test.description }}</p>{% endif %}
+        </div></div>
+
+        <div class="card shadow-sm"><div class="card-body p-4 p-md-5">
+            <form method="POST" action="{{ url_for('aptitude.send_test', test_id=test.id) }}">
+                <div class="mb-2">
+                    <label for="candidate_emails" class="form-label">Candidate emails</label>
+                    <textarea class="form-control" id="candidate_emails" name="candidate_emails" rows="4" placeholder="alex@example.com, sam@example.com" required></textarea>
+                    <div class="form-text">Separate multiple emails with commas. Each candidate gets a unique, single-use link.</div>
+                </div>
+                <div class="d-flex gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane me-2"></i>Send test links</button>
+                    <a href="{{ url_for('aptitude.edit_test', test_id=test.id) }}" class="btn btn-outline-secondary">Back to editing</a>
+                </div>
+            </form>
+        </div></div>
+        <div class="mt-4"><a href="{{ url_for('aptitude.aptitude_home') }}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-2"></i>All tests</a></div>
+    </div>
+</section>
+{% endblock %}

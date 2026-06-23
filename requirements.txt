@@ -1,0 +1,24 @@
+# --- Web framework ---
+Flask==3.1.1
+Flask-SQLAlchemy==3.1.1
+Werkzeug==3.1.3
+gunicorn==23.0.0
+
+# --- Database drivers ---
+# psycopg2-binary is used in production (Render/Postgres via DATABASE_URL).
+# SQLite (used locally) needs no extra driver.
+psycopg2-binary==2.9.10
+
+# --- Resume text extraction ---
+pypdf==5.1.0          # maintained successor to the deprecated PyPDF2
+docx2txt==0.9
+
+# --- Matching (TF-IDF + cosine similarity) ---
+scikit-learn==1.7.1
+numpy==2.2.6          # 2.1+ required for Python 3.13 wheels; works on 3.11/3.12 too
+
+# --- AI resume analyzer (new unified Google GenAI SDK) ---
+google-genai==1.21.0
+
+# --- Config ---
+python-dotenv==1.1.1

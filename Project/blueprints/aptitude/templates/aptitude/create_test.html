@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Create Test — TalentLens{% endblock %}
+{% block content %}
+<section class="py-5">
+    <div class="container" style="max-width:880px;">
+        <span class="eyebrow">New test</span>
+        <h1 class="h2 mb-4">Create an aptitude test</h1>
+        <div class="card shadow-sm"><div class="card-body p-4 p-md-5">
+            <form method="POST" action="{{ url_for('aptitude.create_test') }}">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Test title</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="e.g. Quantitative Aptitude" required>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="3" placeholder="What this test covers..."></textarea>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="time_limit" class="form-label">Time limit (minutes)</label>
+                        <input type="number" class="form-control" id="time_limit" name="time_limit" value="60" min="5" max="180">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="passing_score" class="form-label">Passing score (%)</label>
+                        <input type="number" class="form-control" id="passing_score" name="passing_score" value="60" min="1" max="100">
+                    </div>
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="created_by" class="form-label">Created by</label>
+                    <input type="text" class="form-control" id="created_by" name="created_by" placeholder="Your name" required>
+                </div>
+                <div class="d-flex gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-arrow-right me-2"></i>Create &amp; add questions</button>
+                    <a href="{{ url_for('aptitude.aptitude_home') }}" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div></div>
+    </div>
+</section>
+{% endblock %}

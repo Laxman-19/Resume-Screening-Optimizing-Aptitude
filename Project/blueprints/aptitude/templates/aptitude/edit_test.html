@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block title %}Edit Test — TalentLens{% endblock %}
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+            <div>
+                <span class="eyebrow">Editing</span>
+                <h1 class="h2 mb-1">{{ test.title }}</h1>
+                <p class="text-secondary mb-0">Created {{ test.created_at.strftime('%d %b %Y') }}</p>
+            </div>
+            <a href="{{ url_for('aptitude.send_test', test_id=test.id) }}" class="btn btn-success"><i class="fas fa-paper-plane me-2"></i>Send to candidates</a>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-header"><i class="fas fa-circle-info me-2 text-primary"></i>Details</div>
+                    <div class="card-body">
+                        <p class="mb-2"><span class="text-secondary">Description:</span><br>{{ test.description or '—' }}</p>
+                        <p class="mb-2"><span class="text-secondary">Time limit:</span> {{ test.time_limit }} minutes</p>
+                        <p class="mb-2"><span class="text-secondary">Passing score:</span> {{ test.passing_score }}%</p>
+                        <p class="mb-2"><span class="text-secondary">Created by:</span> {{ test.created_by }}</p>
+                        <p class="mb-0"><span class="text-secondary">Questions:</span> <span class="badge bg-light">{{ questions|length }}</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-header"><i class="fas fa-plus me-2 text-primary"></i>Add a question</div>
+                    <div class="card-body p-4">
+                        <form method="POST" action="{{ url_for('aptitude.add_question', test_id=test.id) }}" id="question-form">
+                            <div class="mb-3">
+                                <label for="question_text" class="form-label">Question</label>
+                                <textarea class="form-control" id="question_text" name="question_text" rows="2" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="question_type" class="form-label">Type</label>
+                                <select class="form-select" id="question_type" name="question_type">
+                                    <option value="multiple_choice">Multiple choice</option>
+                                    <option value="true_false">True / False</option>
+                                </select>
+                            </div>
+                            <label class="form-label">Options <span class="text-secondary fw-normal">(select the correct one)</span></label>
+                            <div id="options-container">
+                                {% for i in range(4) %}
+                                <div class="input-group mb-2">
+                                    <span class="input-group-text"><input type="radio" name="correct_option" value="{{ i }}" {% if i == 0 %}required{% endif %}></span>
+                                    <input type="text" class="form-control" name="option_text[]" placeholder="Option {{ i + 1 }}" {% if i < 2 %}required{% endif %}>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-2"><i class="fas fa-plus me-2"></i>Add question</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header bg-secondary"><i class="fas fa-list me-2"></i>Questions ({{ questions|length }})</div>
+                    <div class="card-body">
+                        {% if questions %}
+                        <div class="accordion" id="questionsAccordion">
+                            {% for question in questions %}
+                            <div class="accordion-item mb-2 border rounded">
+                                <h2 class="accordion-header" id="heading{{ question.id }}">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ question.id }}" aria-expanded="false" aria-controls="collapse{{ question.id }}">
+                                        <strong class="me-2">Q{{ loop.index }}.</strong> {{ question.text|truncate(60) }}
+                                    </button>
+                                </h2>
+                                <div id="collapse{{ question.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ question.id }}" data-bs-parent="#questionsAccordion">
+                                    <div class="accordion-body">
+                                        <p class="mb-2"><strong>{{ question.text }}</strong></p>
+                                        <p class="text-secondary small mb-2">Type: {{ question.question_type.replace('_', ' ') }}</p>
+                                        <ul class="list-group">
+                                            {% for option in question.options %}
+                                            <li class="list-group-item d-flex justify-content-between align-items-center {% if option.is_correct %}list-group-item-success{% endif %}">
+                                                {{ option.option_text }}
+                                                {% if option.is_correct %}<span class="badge badge-success">Correct</span>{% endif %}
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <div class="alert alert-info mb-0">No questions yet. Add your first one using the form above.</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4"><a href="{{ url_for('aptitude.aptitude_home') }}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-2"></i>All tests</a></div>
+    </div>
+</section>
+
+{% block scripts %}{% endblock %}
+<script>
+document.getElementById('question_type').addEventListener('change', function(){
+    const c = document.getElementById('options-container');
+    if (this.value === 'true_false') {
+        c.innerHTML = `
+        <div class="input-group mb-2"><span class="input-group-text"><input type="radio" name="correct_option" value="0" required></span><input type="text" class="form-control" name="option_text[]" value="True" readonly></div>
+        <div class="input-group mb-2"><span class="input-group-text"><input type="radio" name="correct_option" value="1"></span><input type="text" class="form-control" name="option_text[]" value="False" readonly></div>`;
+    } else {
+        let html = '';
+        for (let i = 0; i < 4; i++) {
+            html += `<div class="input-group mb-2"><span class="input-group-text"><input type="radio" name="correct_option" value="${i}" ${i===0?'required':''}></span><input type="text" class="form-control" name="option_text[]" placeholder="Option ${i+1}" ${i<2?'required':''}></div>`;
+        }
+        c.innerHTML = html;
+    }
+});
+</script>
+{% endblock %}

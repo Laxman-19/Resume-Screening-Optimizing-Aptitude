@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" oncopy="return false" oncut="return false" onpaste="return false">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ test.title }} — Aptitude Test</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root{--primary:#4f46e5;--primary-dark:#4338ca;--ink:#0f172a;--muted:#64748b;--border:#e2e8f0;--bg:#f8fafc;--accent:#10b981;--danger:#ef4444;--soft:#eef2ff;}
+        *{box-sizing:border-box;}
+        body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:#1e293b;margin:0;-webkit-font-smoothing:antialiased;user-select:none;}
+        h1,h2,h3{font-family:'Space Grotesk',sans-serif;color:var(--ink);letter-spacing:-.02em;}
+        .topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:.85rem 0;}
+        .topbar .inner{max-width:920px;margin:0 auto;padding:0 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+        .brand{font-family:'Space Grotesk';font-weight:700;color:var(--ink);display:flex;align-items:center;gap:.5rem;}
+        .brand .mark{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(135deg,var(--primary),#7c6cf6);color:#fff;font-size:.85rem;}
+        .timer{font-family:'Space Grotesk';font-weight:700;background:var(--soft);color:var(--primary-dark);border-radius:999px;padding:.45rem 1rem;display:flex;align-items:center;gap:.5rem;}
+        .timer.warn{background:#fef2f2;color:var(--danger);animation:pulse 1s infinite;}
+        @keyframes pulse{50%{opacity:.55;}}
+        .wrap{max-width:920px;margin:2rem auto;padding:0 1.25rem;}
+        .intro{background:#fff;border:1px solid var(--border);border-radius:18px;padding:1.75rem;margin-bottom:1.5rem;box-shadow:0 1px 3px rgba(15,23,42,.06);}
+        .intro h1{margin:0 0 .25rem;font-size:1.5rem;}
+        .intro .who{color:var(--muted);margin:0 0 1rem;}
+        .intro ul{margin:0;padding-left:1.1rem;color:var(--muted);font-size:.92rem;line-height:1.9;}
+        .progress-wrap{height:6px;background:var(--border);border-radius:999px;overflow:hidden;margin-bottom:1.25rem;}
+        .progress-bar2{height:100%;width:0;background:linear-gradient(90deg,var(--primary),#7c6cf6);transition:width .3s ease;}
+        .question-card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:1.75rem;box-shadow:0 1px 3px rgba(15,23,42,.06);display:none;}
+        .question-card.active{display:block;animation:fade .3s ease both;}
+        @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+        .q-count{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--primary);}
+        .q-text{font-size:1.2rem;font-weight:600;color:var(--ink);font-family:'Space Grotesk';margin:.5rem 0 1.25rem;line-height:1.5;}
+        .option-item{display:flex;align-items:center;gap:.85rem;padding:.9rem 1.1rem;border:1.5px solid var(--border);border-radius:12px;margin-bottom:.7rem;cursor:pointer;transition:all .15s ease;}
+        .option-item:hover{border-color:var(--primary);background:var(--soft);}
+        .option-item .dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex:0 0 auto;transition:all .15s ease;}
+        .option-item.selected{border-color:var(--primary);background:var(--soft);}
+        .option-item.selected .dot{border-color:var(--primary);background:var(--primary);box-shadow:inset 0 0 0 3px #fff;}
+        .nav-row{display:flex;justify-content:space-between;margin-top:1.5rem;gap:.5rem;}
+        .btn{font-family:'Inter';font-weight:600;font-size:.94rem;border-radius:10px;padding:.6rem 1.3rem;border:1.5px solid transparent;cursor:pointer;transition:all .15s ease;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;}
+        .btn-primary{background:var(--primary);color:#fff;box-shadow:0 10px 30px -10px rgba(79,70,229,.45);}
+        .btn-primary:hover{background:var(--primary-dark);}
+        .btn-ghost{background:#fff;border-color:var(--border);color:var(--muted);}
+        .btn-ghost:hover{color:var(--ink);}
+        .btn-success{background:var(--accent);color:#fff;}
+        .btn-success:hover{background:#059669;}
+        .confirm{display:none;background:#fff;border:1px solid var(--border);border-radius:18px;padding:1.75rem;text-align:center;box-shadow:0 1px 3px rgba(15,23,42,.06);margin-top:1.25rem;}
+        .confirm.show{display:block;}
+        .confirm h3{margin:0 0 .5rem;}
+        .confirm p{color:var(--muted);margin:0 0 1.25rem;}
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <div class="inner">
+            <div class="brand"><span class="mark"><i class="fas fa-bahai"></i></span>TalentLens</div>
+            <div class="timer" id="timer"><i class="fas fa-clock"></i><span id="time-display">{{ test.time_limit }}:00</span></div>
+        </div>
+    </div>
+
+    <div class="wrap">
+        <div class="intro">
+            <h1>{{ test.title }}</h1>
+            <p class="who">Welcome, <strong>{{ candidate.name }}</strong></p>
+            <ul>
+                <li>You have {{ test.time_limit }} minutes to complete this test.</li>
+                <li>Each question has one correct answer.</li>
+                <li>The test submits automatically when time runs out.</li>
+            </ul>
+        </div>
+
+        <div class="progress-wrap"><div class="progress-bar2" id="progressBar"></div></div>
+
+        <div id="test-form">
+            {% for question in questions %}
+            <div class="question-card {% if loop.first %}active{% endif %}" id="question-{{ loop.index }}">
+                <div class="q-count">Question {{ loop.index }} of {{ questions|length }}</div>
+                <div class="q-text">{{ question.text }}</div>
+                <div class="options-list" data-question-index="{{ question.id }}">
+                    {% for option in question.options %}
+                    <div class="option-item" data-option-id="{{ option.id }}"><span class="dot"></span><span>{{ option.option_text }}</span></div>
+                    {% endfor %}
+                </div>
+                <div class="nav-row">
+                    {% if not loop.first %}<button class="btn btn-ghost" onclick="showQuestion({{ loop.index - 1 }})"><i class="fas fa-arrow-left"></i>Previous</button>{% else %}<span></span>{% endif %}
+                    {% if not loop.last %}<button class="btn btn-primary" onclick="showQuestion({{ loop.index + 1 }})">Next<i class="fas fa-arrow-right"></i></button>
+                    {% else %}<button class="btn btn-success" onclick="showSubmitConfirmation()"><i class="fas fa-check"></i>Finish</button>{% endif %}
+                </div>
+            </div>
+            {% endfor %}
+
+            <div id="submit-confirmation" class="confirm">
+                <h3>Submit your test?</h3>
+                <p>Make sure you've reviewed your answers — this can't be undone.</p>
+                <button class="btn btn-ghost" onclick="hideSubmitConfirmation()">Review answers</button>
+                <button class="btn btn-success" onclick="submitTest()"><i class="fas fa-paper-plane"></i>Submit test</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if ((e.ctrlKey || e.metaKey) && ['c','v','x'].includes(e.key)) e.preventDefault();
+            if (e.key === 'F12') e.preventDefault();
+        });
+
+        const totalQuestions = {{ questions|length }};
+        let timeLeft = {{ test.time_limit * 60 }};
+        const timerDisplay = document.getElementById('time-display');
+        const progressBar = document.getElementById('progressBar');
+        function startTimer(){
+            const timer = setInterval(() => {
+                if (timeLeft <= 0) { clearInterval(timer); submitTest(); return; }
+                timeLeft--;
+                const m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+                timerDisplay.textContent = `${m}:${s < 10 ? '0' : ''}${s}`;
+                if (timeLeft < 300) document.getElementById('timer').classList.add('warn');
+            }, 1000);
+        }
+
+        let currentQuestion = 1;
+        const answers = {};
+        function showQuestion(index){
+            document.querySelectorAll('.question-card').forEach(c => c.classList.remove('active'));
+            document.getElementById(`question-${index}`).classList.add('active');
+            currentQuestion = index;
+            progressBar.style.width = ((index / totalQuestions) * 100) + '%';
+            window.scrollTo({top:0, behavior:'smooth'});
+        }
+
+        document.querySelectorAll('.option-item').forEach(option => {
+            option.addEventListener('click', function(){
+                const questionIndex = this.parentElement.dataset.questionIndex;
+                const optionId = this.dataset.optionId;
+                this.parentElement.querySelectorAll('.option-item').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                answers[questionIndex] = optionId;
+            });
+        });
+
+        function showSubmitConfirmation(){ document.getElementById('submit-confirmation').classList.add('show'); window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}); }
+        function hideSubmitConfirmation(){ document.getElementById('submit-confirmation').classList.remove('show'); }
+
+        async function submitTest(){
+            try {
+                const response = await fetch(`/aptitude/submit_test/{{ attempt_id }}`, {
+                    method:'POST', headers:{'Content-Type':'application/json'},
+                    body: JSON.stringify({answers: answers})
+                });
+                const result = await response.json();
+                if (result.success) window.location.href = result.redirect;
+                else alert('Error submitting test. Please try again.');
+            } catch (e) { console.error(e); alert('Error submitting test. Please try again.'); }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => { startTimer(); progressBar.style.width = (100/totalQuestions) + '%'; });
+    </script>
+</body>
+</html>

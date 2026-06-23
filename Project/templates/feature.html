@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block title %}Features — TalentLens{% endblock %}
+{% block content %}
+
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="eyebrow">Features</span>
+                <h1 class="display-4 fw-bold mb-3">Everything you need to screen smarter</h1>
+                <p class="lead text-secondary mb-0">A focused toolkit that takes you from a pile of resumes to a tested, ranked shortlist.</p>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block">
+                <img src="{{ url_for('static', filename='images/features-hero.svg') }}" alt="Features illustration" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title">Core features</h2>
+        <p class="section-subtitle">Each tool does one job well — and they connect into a single hiring flow.</p>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card h-100 feature-card"><div class="card-body p-4">
+                    <div class="feature-icon"><i class="fas fa-magnifying-glass"></i></div>
+                    <h3 class="h4 mb-2">Resume Screening</h3>
+                    <p class="text-secondary mb-3">Rank resumes against a job description using proven NLP techniques.</p>
+                    <ul class="list-unstyled mb-4 small">
+                        <li class="mb-2"><i class="fas fa-circle-check text-success me-2"></i>TF-IDF text vectorization</li>
+                        <li class="mb-2"><i class="fas fa-circle-check text-success me-2"></i>Cosine-similarity ranking</li>
+                        <li class="mb-2"><i class="fas fa-circle-check text-success me-2"></i>Automatic detail extraction</li>
+                    </ul>
+                    <a href="{{ url_for('screeningbp.screening_home') }}" class="btn btn-outline-primary">Try screening</a>
+                </div></div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100 feature-card"><div class="card-body p-4">
+                    <div class="feature-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+                    <h3 class="h4 mb-2">Resume Optimization</h3>
+                    <p class="text-secondary mb-3">An AI reviewer scores a resume and shows exactly what to improve.</p>
+                    <ul class="list-unstyled mb-4 small">
+                        <li class="mb-2"><i class="fas fa-circle-check text-success me-2"></i>ATS-style match score</li>
+                        <li class="mb-2"><i class="fas fa-circle-check text-success me-2"></i>Missing-keyword detection</li>
+                        <li class="mb-2"><i class="fas fa-circle-check text-success me-2"></i>Tailored profile summary</li>
+                    </ul>
+                    <a href="{{ url_for('optimizingbp.optimizing_home') }}" class="btn btn-outline-primary">Optimize a resume</a>
+                </div></div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100 feature-card"><div class="card-body p-4">
+                    <div class="feature-icon"><i class="fas fa-brain"></i></div>
+                    <h3 class="h4 mb-2">Aptitude Testing</h3>
+                    <p class="text-secondary mb-3">Create timed assessments and invite candidates with secure one-time links.</p>
+                    <ul class="list-unstyled mb-4 small">
+                        <li class="mb-2"><i class="fas fa-circle-check text-success me-2"></i>Multiple-choice &amp; true/false</li>
+                        <li class="mb-2"><i class="fas fa-circle-check text-success me-2"></i>Auto-scoring &amp; pass/fail</li>
+                        <li class="mb-2"><i class="fas fa-circle-check text-success me-2"></i>Expiring single-use links</li>
+                    </ul>
+                    <a href="{{ url_for('aptitude.aptitude_home') }}" class="btn btn-outline-primary">Create a test</a>
+                </div></div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100 feature-card"><div class="card-body p-4">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3 class="h4 mb-2">Results &amp; Insights</h3>
+                    <p class="text-secondary mb-3">Review candidate performance at a glance from one dashboard.</p>
+                    <ul class="list-unstyled mb-4 small">
+                        <li class="mb-2"><i class="fas fa-circle-check text-success me-2"></i>Per-test results table</li>
+                        <li class="mb-2"><i class="fas fa-circle-check text-success me-2"></i>Pass / fail summary</li>
+                        <li class="mb-2"><i class="fas fa-circle-check text-success me-2"></i>Detailed answer review</li>
+                    </ul>
+                    <a href="{{ url_for('aptitude.aptitude_home') }}" class="btn btn-outline-primary">View dashboard</a>
+                </div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title">Why it works</h2>
+        <p class="section-subtitle">Practical engineering choices, not buzzwords.</p>
+        <div class="row g-4">
+            <div class="col-md-4"><div class="card h-100"><div class="card-body p-4 text-center">
+                <div class="feature-icon mx-auto"><i class="fas fa-bolt"></i></div>
+                <h3 class="h5 mb-2">Fast</h3>
+                <p class="text-secondary mb-0">Screen a whole batch of resumes in seconds, not an afternoon.</p>
+            </div></div></div>
+            <div class="col-md-4"><div class="card h-100"><div class="card-body p-4 text-center">
+                <div class="feature-icon mx-auto"><i class="fas fa-bullseye"></i></div>
+                <h3 class="h5 mb-2">Relevant</h3>
+                <p class="text-secondary mb-0">Ranking is grounded in the actual job description you provide.</p>
+            </div></div></div>
+            <div class="col-md-4"><div class="card h-100"><div class="card-body p-4 text-center">
+                <div class="feature-icon mx-auto"><i class="fas fa-lock"></i></div>
+                <h3 class="h5 mb-2">Controlled</h3>
+                <p class="text-secondary mb-0">Test links are single-use and expire, so access stays in your hands.</p>
+            </div></div></div>
+        </div>
+    </div>
+</section>
+
+<section class="cta py-5">
+    <div class="container">
+        <div class="cta-panel">
+            <h2 class="mb-3">Put it to work on a real job</h2>
+            <p class="lead mb-4">Bring a job description and a few resumes — see the ranking for yourself.</p>
+            <a href="{{ url_for('screeningbp.screening_home') }}" class="btn btn-light btn-lg"><i class="fas fa-rocket me-2"></i>Get started</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

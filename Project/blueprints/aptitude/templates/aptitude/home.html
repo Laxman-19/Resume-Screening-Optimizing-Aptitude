@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Aptitude Tests — TalentLens{% endblock %}
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+            <div>
+                <span class="eyebrow">Aptitude testing</span>
+                <h1 class="h2 mb-1">Test management</h1>
+                <p class="text-secondary mb-0">Create assessments, invite candidates, and review results.</p>
+            </div>
+            <a href="{{ url_for('aptitude.create_test') }}" class="btn btn-primary"><i class="fas fa-plus me-2"></i>Create new test</a>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}<div class="alert alert-success">{% for m in messages %}{{ m }}{% endfor %}</div>{% endif %}
+        {% endwith %}
+
+        <div class="card">
+            <div class="card-header"><i class="fas fa-list-check me-2 text-primary"></i>Available tests</div>
+            <div class="card-body">
+                {% if tests %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead><tr><th>Title</th><th>Description</th><th>Time</th><th>Pass mark</th><th>Created</th><th class="text-end">Actions</th></tr></thead>
+                        <tbody>
+                        {% for test in tests %}
+                        <tr>
+                            <td class="fw-medium">{{ test.title }}</td>
+                            <td class="text-secondary">{{ test.description|truncate(45) if test.description else '—' }}</td>
+                            <td>{{ test.time_limit }} min</td>
+                            <td>{{ test.passing_score }}%</td>
+                            <td class="text-secondary">{{ test.created_at.strftime('%d %b %Y') }}</td>
+                            <td class="text-end">
+                                <div class="btn-group">
+                                    <a href="{{ url_for('aptitude.edit_test', test_id=test.id) }}" class="btn btn-sm btn-outline-primary"><i class="fas fa-pen"></i></a>
+                                    <a href="{{ url_for('aptitude.send_test', test_id=test.id) }}" class="btn btn-sm btn-outline-primary"><i class="fas fa-paper-plane"></i></a>
+                                    <a href="{{ url_for('aptitude.view_results', test_id=test.id) }}" class="btn btn-sm btn-outline-primary"><i class="fas fa-chart-bar"></i></a>
+                                    <form action="{{ url_for('aptitude.delete_test', test_id=test.id) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this test? This cannot be undone.');">
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary text-danger"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-5">
+                    <div class="feature-icon mx-auto"><i class="fas fa-clipboard-list"></i></div>
+                    <h2 class="h5 mt-3 mb-1">No tests yet</h2>
+                    <p class="text-secondary mb-3">Create your first aptitude test to get started.</p>
+                    <a href="{{ url_for('aptitude.create_test') }}" class="btn btn-primary"><i class="fas fa-plus me-2"></i>Create a test</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="mt-4"><a href="{{ url_for('home') }}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-2"></i>Back to home</a></div>
+    </div>
+</section>
+{% endblock %}

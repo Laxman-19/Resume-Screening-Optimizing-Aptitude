@@ -1,0 +1,113 @@
+TalentLens – AI-Powered Resume Screening, Analysis and Candidate Assessment Platform
+Project Overview
+
+TalentLens is a full-stack recruitment platform designed to simplify and accelerate the hiring process. The application combines resume screening, AI-powered ATS analysis, and aptitude assessment management into a single unified system, enabling recruiters to identify, evaluate, and engage the most suitable candidates efficiently.
+
+Built with Flask and modern Python technologies, TalentLens automates many of the repetitive tasks involved in recruitment while providing recruiters with data-driven insights and candidates with actionable feedback.
+
+Resume Screening & Candidate Shortlisting
+
+The Resume Screening module allows recruiters to upload multiple resumes and compare them against a specific job description. Using Natural Language Processing techniques such as TF-IDF Vectorization and Cosine Similarity, the platform analyzes the relevance of each resume and ranks candidates based on their match score.
+
+Along with ranking candidates, the system automatically extracts key information from resumes, including candidate name, email address, phone number, skills, and experience-related details. This enables recruiters to quickly review shortlisted applicants without manually scanning every resume.
+
+Once suitable candidates have been identified, recruiters can communicate directly with them through the platform or invite them to complete an aptitude assessment for further evaluation.
+
+AI-Powered Resume Optimization & ATS Analysis
+
+TalentLens includes an intelligent Resume Optimization module powered by Google Gemini. Candidates can upload their resume along with a target job description to receive a detailed ATS-style evaluation.
+
+The system analyzes the alignment between the resume and job requirements, providing a comprehensive assessment that includes ATS match percentage, missing keywords, profile summary, skill gap analysis, and personalized recommendations for improvement.
+
+To further support career development, the platform also suggests relevant learning resources and courses that can help candidates strengthen missing skills and improve future application success.
+
+This feature serves as a practical career enhancement tool while also demonstrating how modern AI can be applied to recruitment workflows.
+
+Online Aptitude Assessment System
+
+The Aptitude Assessment module enables recruiters to create, manage, and distribute online assessments directly from the platform.
+
+Recruiters can build custom multiple-choice tests, define passing criteria, set time limits, and generate secure assessment links for individual candidates. Each assessment link contains a unique token and remains valid for a limited period, ensuring controlled access and improved assessment integrity.
+
+Candidates can complete assessments online through a dedicated interface, after which responses are automatically evaluated and scored. Recruiters can then review detailed performance reports, pass/fail status, and individual test results to support data-driven hiring decisions.
+
+By integrating assessment management directly into the recruitment workflow, TalentLens eliminates the need for separate testing platforms and creates a seamless candidate evaluation experience.
+
+Technical Architecture
+
+TalentLens is developed using a modular Flask architecture that promotes scalability, maintainability, and clean separation of responsibilities.
+
+The application follows the Flask Application Factory pattern and organizes functionality into independent modules, allowing each major feature area to operate as a dedicated blueprint.
+
+The platform utilizes Flask-SQLAlchemy for database management and supports SQLite for local development and PostgreSQL for production deployments. This flexibility allows the same codebase to operate efficiently in both development and production environments.
+
+Machine learning functionality is powered by Scikit-learn, which handles resume-to-job-description similarity calculations through TF-IDF vectorization and cosine similarity scoring.
+
+For document processing, the application supports PDF, DOCX, and TXT resume formats using pypdf and docx2txt, enabling recruiters to work with commonly used resume file types.
+
+Google Gemini serves as the AI engine behind the resume optimization workflow, providing intelligent analysis, keyword recommendations, and profile evaluations.
+
+The frontend is built using Bootstrap 5 and a custom TalentLens design system that combines modern typography, responsive layouts, interactive components, and a professional user experience suitable for real-world recruitment environments.
+
+Core Platform Features
+Resume Screening
+Upload multiple resumes simultaneously
+Analyze resumes against a job description
+Generate candidate match scores
+Rank applicants automatically
+Extract candidate contact information
+Identify candidate skills and qualifications
+Streamline candidate shortlisting
+ATS Resume Analysis
+AI-powered resume evaluation
+ATS compatibility scoring
+Missing keyword detection
+Profile summarization
+Skill gap identification
+Personalized improvement recommendations
+Learning resource suggestions
+Aptitude Testing
+Custom test creation
+Multiple-choice assessment support
+Candidate-specific assessment links
+Secure tokenized access
+Automated scoring system
+Performance tracking
+Pass/fail evaluation
+Recruiter Workflow Management
+Candidate communication
+Assessment invitations
+Candidate tracking
+Centralized evaluation process
+End-to-end recruitment support
+Database Design
+
+The platform utilizes a relational database structure designed around the recruitment workflow.
+
+The Candidate model stores applicant information and resume-related data. The AptitudeTest model manages assessment configurations, while the Question and Option models handle test content and answer choices.
+
+The TestLink model manages secure candidate invitations and assessment access tokens. TestAttempt records assessment results and candidate performance, while the Answer model stores individual candidate responses for detailed result analysis.
+
+Together, these models provide a structured and scalable foundation for managing recruitment data throughout the hiring lifecycle.
+
+User Experience & Interface
+
+TalentLens has been designed with a strong emphasis on usability and professional presentation.
+
+The interface features a modern design system with consistent branding, responsive layouts, intuitive navigation, and recruiter-focused workflows. Interactive visualizations such as ATS score indicators, progress tracking, and structured result displays help users quickly understand candidate performance and resume quality.
+
+The platform is optimized for desktop and modern web browsers, ensuring a smooth and responsive experience across different devices and screen sizes.
+
+Deployment & Production Readiness
+
+TalentLens is designed for straightforward deployment and production use. The application supports environment-based configuration management, secure handling of API credentials, database portability, and deployment through modern hosting platforms such as Render.
+
+Production deployments utilize Gunicorn as the WSGI server, PostgreSQL for persistent data storage, and environment variables for secure configuration management.
+
+This architecture ensures reliability, scalability, and maintainability while keeping deployment complexity low.
+
+Conclusion
+
+TalentLens is a comprehensive recruitment solution that combines automated resume screening, AI-powered ATS analysis, and integrated aptitude testing within a single platform. By leveraging machine learning, artificial intelligence, and modern web development practices, the system helps recruiters make faster, more informed hiring decisions while providing candidates with meaningful feedback and improvement opportunities.
+
+The platform demonstrates practical applications of NLP, AI integration, automated assessment systems, database management, and full-stack web development, making it both a powerful recruitment tool and a strong showcase of modern software engineering capabilities.

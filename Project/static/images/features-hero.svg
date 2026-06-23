@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="400" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background Elements -->
+    <circle cx="500" cy="100" r="80" fill="#EFF6FF" />
+    <circle cx="100" cy="300" r="60" fill="#DBEAFE" />
+    
+    <!-- Central Feature Hub -->
+    <circle cx="300" cy="200" r="60" fill="#3B82F6" />
+    <circle cx="300" cy="200" r="50" fill="#60A5FA" />
+    <text x="300" y="210" text-anchor="middle" fill="white" font-family="Arial" font-size="24">AI</text>
+    
+    <!-- Connected Feature Icons -->
+    <!-- Screening -->
+    <g transform="translate(150, 100)">
+        <circle cx="0" cy="0" r="30" fill="#2563EB" />
+        <path d="M-15 0 L15 0 M0 -15 L0 15" stroke="white" stroke-width="3" />
+    </g>
+    <path d="M180 130 L270 170" stroke="#3B82F6" stroke-width="2" stroke-dasharray="4 4" />
+    
+    <!-- Optimization -->
+    <g transform="translate(450, 100)">
+        <circle cx="0" cy="0" r="30" fill="#2563EB" />
+        <path d="M-10 -10 L10 10 M-10 10 L10 -10" stroke="white" stroke-width="3" />
+    </g>
+    <path d="M420 130 L330 170" stroke="#3B82F6" stroke-width="2" stroke-dasharray="4 4" />
+    
+    <!-- Testing -->
+    <g transform="translate(150, 300)">
+        <circle cx="0" cy="0" r="30" fill="#2563EB" />
+        <path d="M-15 0 A15 15 0 0 1 15 0" stroke="white" stroke-width="3" fill="none" />
+    </g>
+    <path d="M180 270 L270 230" stroke="#3B82F6" stroke-width="2" stroke-dasharray="4 4" />
+    
+    <!-- Analytics -->
+    <g transform="translate(450, 300)">
+        <circle cx="0" cy="0" r="30" fill="#2563EB" />
+        <path d="M-10 10 L-10 -10 L10 -10 L10 10" stroke="white" stroke-width="3" fill="none" />
+    </g>
+    <path d="M420 270 L330 230" stroke="#3B82F6" stroke-width="2" stroke-dasharray="4 4" />
+    
+    <!-- Decorative Elements -->
+    <circle cx="200" cy="200" r="5" fill="#60A5FA" />
+    <circle cx="400" cy="200" r="5" fill="#60A5FA" />
+    <circle cx="300" cy="100" r="5" fill="#60A5FA" />
+    <circle cx="300" cy="300" r="5" fill="#60A5FA" />
+    
+    <!-- Pulse Animation -->
+    <circle cx="300" cy="200" r="70" stroke="#3B82F6" stroke-width="2" opacity="0.5">
+        <animate attributeName="r" values="70;80;70" dur="2s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.5;0;0.5" dur="2s" repeatCount="indefinite" />
+    </circle>
+</svg> 

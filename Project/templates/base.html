@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TalentLens — Resume Intelligence{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+                <span class="brand-mark"><i class="fas fa-bahai"></i></span>TalentLens
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'home' %}active{% endif %}" href="{{ url_for('home') }}">
+                            <i class="fas fa-house"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.blueprint == 'screeningbp' %}active{% endif %}" href="{{ url_for('screeningbp.screening_home') }}">
+                            <i class="fas fa-magnifying-glass"></i>Screening
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.blueprint == 'optimizingbp' %}active{% endif %}" href="{{ url_for('optimizingbp.optimizing_home') }}">
+                            <i class="fas fa-wand-magic-sparkles"></i>Optimize
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.blueprint == 'aptitude' %}active{% endif %}" href="{{ url_for('aptitude.aptitude_home') }}">
+                            <i class="fas fa-brain"></i>Aptitude
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'features' %}active{% endif %}" href="{{ url_for('features') }}">
+                            <i class="fas fa-star"></i>Features
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-primary btn-sm px-3 {% if request.endpoint == 'contact' %}active{% endif %}" href="{{ url_for('contact') }}">
+                            Contact
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="fade-in">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-4">
+                    <div class="footer-brand mb-2"><i class="fas fa-bahai me-2"></i>TalentLens</div>
+                    <p class="small mb-0">AI-assisted resume screening, optimization, and aptitude testing — built to help teams hire faster and smarter.</p>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6>Product</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="{{ url_for('screeningbp.screening_home') }}">Screening</a></li>
+                        <li class="mb-2"><a href="{{ url_for('optimizingbp.optimizing_home') }}">Optimize</a></li>
+                        <li class="mb-2"><a href="{{ url_for('aptitude.aptitude_home') }}">Aptitude</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6>Company</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="{{ url_for('features') }}">Features</a></li>
+                        <li class="mb-2"><a href="{{ url_for('contact') }}">Team</a></li>
+                        <li class="mb-2"><a href="{{ url_for('contact') }}">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6>About</h6>
+                    <p class="small mb-0">A final-year project demonstrating an end-to-end recruitment workflow with NLP matching and generative-AI feedback.</p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <p class="text-center small mb-0">&copy; 2026 TalentLens. Built by Laxman, Niharika &amp; Harish.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const nav = document.getElementById('mainNav');
+        const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+        window.addEventListener('scroll', onScroll); onScroll();
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Your Results — {{ test.title }}{% endblock %}
+{% block content %}
+<section class="py-5">
+    <div class="container" style="max-width:900px;">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body p-4 p-md-5 text-center">
+                <span class="eyebrow">Test results</span>
+                <h1 class="h3 mb-1">{{ test.title }}</h1>
+                <p class="text-secondary mb-4">{{ candidate.name }} · completed {{ attempt.end_time.strftime('%d %b %Y, %H:%M') if attempt.end_time else '—' }}</p>
+
+                <div class="match-score-circle mx-auto mb-3" style="width:150px;height:150px;">
+                    <div class="circle-progress" style="--progress: {{ attempt.score|round|int if attempt.score is not none else 0 }};">
+                        <span class="progress-value" style="font-size:2rem;{% if not attempt.passed %}color:var(--error-color);{% endif %}">{{ "%.0f"|format(attempt.score if attempt.score is not none else 0) }}%</span>
+                    </div>
+                </div>
+
+                {% if attempt.passed %}
+                <h2 class="h4 text-success mb-1"><i class="fas fa-circle-check me-2"></i>You passed</h2>
+                {% else %}
+                <h2 class="h4 mb-1" style="color:var(--error-color)"><i class="fas fa-circle-xmark me-2"></i>Not passed</h2>
+                {% endif %}
+                <p class="text-secondary mb-0">Passing score: {{ test.passing_score }}% · Questions: {{ answers|length }}</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><i class="fas fa-list-check me-2 text-primary"></i>Answer review</div>
+            <div class="card-body p-4">
+                {% for answer in answers %}
+                <div class="mb-4 pb-3 {% if not loop.last %}border-bottom{% endif %}">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h3 class="h6 mb-0">Question {{ loop.index }}</h3>
+                        {% if answer.is_correct %}<span class="badge badge-success">Correct</span>{% else %}<span class="badge badge-danger">Incorrect</span>{% endif %}
+                    </div>
+                    <p class="mb-3">{{ answer.question.text }}</p>
+                    <ul class="list-group">
+                        {% for option in answer.question.options %}
+                        {% set is_chosen = option.id == answer.selected_option_id %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center
+                            {% if option.is_correct %}list-group-item-success{% elif is_chosen and not answer.is_correct %}list-group-item-danger{% endif %}">
+                            <span>{{ option.option_text }}</span>
+                            <span>
+                                {% if is_chosen %}<span class="badge badge-info">Your answer</span>{% endif %}
+                                {% if option.is_correct and not is_chosen %}<span class="badge badge-success">Correct answer</span>{% endif %}
+                            </span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endfor %}
+                <p class="text-secondary small text-center mb-0">Your results have been recorded and shared with the hiring team.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block title %}TalentLens — Resume Intelligence{% endblock %}
+{% block content %}
+
+<section class="hero">
+    <div class="container" style="max-width:1160px;">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="eyebrow">AI-powered hiring</span>
+                <h1 class="display-4 fw-bold mb-3" style="font-size:clamp(2.4rem,3.6vw,3.05rem);line-height:1.14;">Find the right<br>candidate, faster.</h1>
+                <p class="lead text-secondary mb-4">TalentLens reads every resume, ranks it against your job description, and helps you screen, optimize, and test candidates — all in one place.</p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{{ url_for('screeningbp.screening_home') }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-magnifying-glass me-2"></i>Start screening
+                    </a>
+                    <a href="{{ url_for('features') }}" class="btn btn-outline-primary btn-lg">
+                        See how it works
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block text-end">
+                <img src="{{ url_for('static', filename='images/hero-illustration.svg') }}" alt="Resume screening illustration" class="img-fluid" style="max-width:108%;">
+            </div>
+        </div>
+        <div class="d-flex flex-wrap flex-lg-nowrap gap-4 mt-4 text-secondary small">
+            <span class="text-nowrap"><i class="fas fa-circle-check text-success me-2"></i>NLP resume matching</span>
+            <span class="text-nowrap"><i class="fas fa-circle-check text-success me-2"></i>Generative-AI feedback</span>
+            <span class="text-nowrap"><i class="fas fa-circle-check text-success me-2"></i>Built-in aptitude tests</span>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <span class="eyebrow d-block text-center">Capabilities</span>
+        <h2 class="section-title">Three tools, one workflow</h2>
+        <p class="section-subtitle">From a stack of resumes to a tested shortlist — without switching apps.</p>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 feature-card">
+                    <div class="card-body p-4">
+                        <div class="feature-icon"><i class="fas fa-magnifying-glass"></i></div>
+                        <h3 class="h5 mb-2">Resume Screening</h3>
+                        <p class="text-secondary mb-4">Upload many resumes and a job description. We rank candidates by relevance and pull out their key details automatically.</p>
+                        <a href="{{ url_for('screeningbp.screening_home') }}" class="btn btn-outline-primary">Screen resumes</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 feature-card">
+                    <div class="card-body p-4">
+                        <div class="feature-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+                        <h3 class="h5 mb-2">Resume Optimization</h3>
+                        <p class="text-secondary mb-4">Get an AI match score, the keywords a resume is missing, and a rewritten profile summary tuned to the role.</p>
+                        <a href="{{ url_for('optimizingbp.optimizing_home') }}" class="btn btn-outline-primary">Optimize a resume</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 feature-card">
+                    <div class="card-body p-4">
+                        <div class="feature-icon"><i class="fas fa-brain"></i></div>
+                        <h3 class="h5 mb-2">Aptitude Testing</h3>
+                        <p class="text-secondary mb-4">Build timed multiple-choice tests, send candidates a one-time link, and review auto-scored results in a dashboard.</p>
+                        <a href="{{ url_for('aptitude.aptitude_home') }}" class="btn btn-outline-primary">Create a test</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <span class="eyebrow d-block text-center">How it works</span>
+        <h2 class="section-title">From inbox to shortlist in four steps</h2>
+        <p class="section-subtitle">A simple, repeatable flow your whole team can follow.</p>
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="d-flex align-items-start gap-3">
+                    <div class="step-num">1</div>
+                    <div><h3 class="h6 mb-1">Add the job</h3><p class="text-secondary small mb-0">Paste the job description you're hiring for.</p></div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="d-flex align-items-start gap-3">
+                    <div class="step-num">2</div>
+                    <div><h3 class="h6 mb-1">Upload resumes</h3><p class="text-secondary small mb-0">Drop in PDFs or Word files — as many as you like.</p></div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="d-flex align-items-start gap-3">
+                    <div class="step-num">3</div>
+                    <div><h3 class="h6 mb-1">Review the ranking</h3><p class="text-secondary small mb-0">See the best matches with extracted details.</p></div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="d-flex align-items-start gap-3">
+                    <div class="step-num">4</div>
+                    <div><h3 class="h6 mb-1">Test &amp; decide</h3><p class="text-secondary small mb-0">Send an aptitude test and compare scores.</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta py-5">
+    <div class="container">
+        <div class="cta-panel">
+            <h2 class="mb-3">Ready to screen your next batch?</h2>
+            <p class="lead mb-4">Start with a job description and a folder of resumes. It takes about a minute.</p>
+            <a href="{{ url_for('screeningbp.screening_home') }}" class="btn btn-light btn-lg"><i class="fas fa-arrow-right me-2"></i>Get started</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

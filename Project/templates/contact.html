@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Team & Contact — TalentLens{% endblock %}
+{% block content %}
+
+<section class="hero py-5">
+    <div class="container text-center">
+        <span class="eyebrow">The team</span>
+        <h1 class="display-5 fw-bold mb-2">Meet the people behind TalentLens</h1>
+        <p class="lead text-secondary mb-0">A small team building intelligent tools for hiring.</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card team-card h-100"><div class="card-body text-center p-4">
+                    <div class="team-avatar mb-3"><img src="{{ url_for('static', filename='images/laxman.jpeg') }}" alt="Laxman Sawant" class="rounded-circle"></div>
+                    <h3 class="h5 mb-1">Laxman Sawant</h3>
+                    <p class="text-primary fw-medium mb-2">Lead Developer</p>
+                    <p class="text-secondary small mb-3"><i class="fas fa-envelope me-2"></i>laxman19.sawant@gmail.com</p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="https://www.linkedin.com/in/laxman-sawant-010356245/" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm"><i class="fab fa-linkedin me-1"></i>LinkedIn</a>
+                        <a href="https://github.com/" target="_blank" rel="noopener" class="btn btn-outline-secondary btn-sm"><i class="fab fa-github me-1"></i>GitHub</a>
+                    </div>
+                </div></div>
+            </div>
+            <div class="col-md-4">
+                <div class="card team-card h-100"><div class="card-body text-center p-4">
+                    <div class="team-avatar mb-3"><img src="{{ url_for('static', filename='images/niharika.jpeg') }}" alt="Niharika Sahu" class="rounded-circle"></div>
+                    <h3 class="h5 mb-1">Niharika Sahu</h3>
+                    <p class="text-primary fw-medium mb-2">Data Scientist</p>
+                    <p class="text-secondary small mb-3"><i class="fas fa-envelope me-2"></i>niharika@gmail.com</p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="https://www.linkedin.com/in/niharika-sahu-677511261" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm"><i class="fab fa-linkedin me-1"></i>LinkedIn</a>
+                        <a href="https://github.com/" target="_blank" rel="noopener" class="btn btn-outline-secondary btn-sm"><i class="fab fa-github me-1"></i>GitHub</a>
+                    </div>
+                </div></div>
+            </div>
+            <div class="col-md-4">
+                <div class="card team-card h-100"><div class="card-body text-center p-4">
+                    <div class="team-avatar mb-3"><img src="{{ url_for('static', filename='images/harish.png') }}" alt="Harish Sargar" class="rounded-circle"></div>
+                    <h3 class="h5 mb-1">Harish Sargar</h3>
+                    <p class="text-primary fw-medium mb-2">Backend Engineer</p>
+                    <p class="text-secondary small mb-3"><i class="fas fa-envelope me-2"></i>harish@gmail.com</p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="https://www.linkedin.com/in/harish-sargar-09500124b/" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm"><i class="fab fa-linkedin me-1"></i>LinkedIn</a>
+                        <a href="https://github.com/Harishsargar" target="_blank" rel="noopener" class="btn btn-outline-secondary btn-sm"><i class="fab fa-github me-1"></i>GitHub</a>
+                    </div>
+                </div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container" style="max-width:680px;">
+        <div class="card shadow-sm"><div class="card-body p-4 p-md-5">
+            <h2 class="h3 text-center mb-2">Get in touch</h2>
+            <p class="text-center text-secondary mb-4">Questions or feedback? We'd love to hear from you.</p>
+
+            {% if message %}
+            <div class="alert alert-success mb-4">
+                <h3 class="h6 mb-1">Thank you, {{ name }}!</h3>
+                <p class="mb-0 small">{{ message }} We appreciate your feedback.</p>
+            </div>
+            {% endif %}
+
+            <form action="{{ url_for('contact') }}" method="POST">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Your name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-4">
+                    <label for="feedback" class="form-label">Message</label>
+                    <textarea class="form-control" id="feedback" name="feedback" rows="5" required></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-paper-plane me-2"></i>Send message</button>
+                </div>
+            </form>
+        </div></div>
+    </div>
+</section>
+{% endblock %}
