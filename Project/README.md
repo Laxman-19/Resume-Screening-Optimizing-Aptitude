@@ -21,7 +21,7 @@ AI optimizer needs a `GEMINI_API_KEY` (free from https://aistudio.google.com/api
 Push to GitHub, then create a **New Web Service** from the repo:
 
 - Build command: `pip install -r requirements.txt`
-- Start command: `gunicorn "app:app" --bind 0.0.0.0:$PORT --workers 2 --timeout 120`
+- Start command: `gunicorn --chdir project "app:app" --bind 0.0.0.0:$PORT --workers 2 --timeout 120`
 - Environment variables: `SECRET_KEY`, `GEMINI_API_KEY` (and the `EMAIL_*` vars
   if you want email). Leave `DATABASE_URL` unset to use SQLite.
 
